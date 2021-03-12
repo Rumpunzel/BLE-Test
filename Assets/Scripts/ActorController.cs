@@ -11,6 +11,8 @@ public class ActorController : MonoBehaviour
     [SerializeField] private bool m_CanDoubleJump = false;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
     [SerializeField] private LayerMask m_WhatIsGround;
+    [SerializeField] private Transform m_GroundCheck;
+    [SerializeField] private GameObject m_Projectile;
 
 
     const float k_GroundedRadius = .2f;
@@ -48,7 +50,7 @@ public class ActorController : MonoBehaviour
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, k_GroundedRadius, m_WhatIsGround);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
@@ -94,13 +96,21 @@ public class ActorController : MonoBehaviour
 
     public void Shoot()
     {
-		m_StateMachine.Shoot();
+		if (m_StateMachine.Shoot())
+        {
+            SpawnProjectile();
+        }
 	}
+
+    private void SpawnProjectile()
+    {
+        // TODO
+    }
 
     private void EndShoot()
     {
-        m_StateMachine.Shoot();
-    }
+		m_StateMachine.EndShoot();
+	}
 
 
 	private void Flip()

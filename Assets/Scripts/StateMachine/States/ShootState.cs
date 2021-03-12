@@ -19,9 +19,9 @@ public class ShootState : ActorState
         return Vector2.zero;
     }
 
-    override public void Shoot()
+    override public bool Shoot()
     {
-        return;
+        return false;
     }
 
     public void EndShoot()

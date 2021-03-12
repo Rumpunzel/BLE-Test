@@ -60,15 +60,15 @@ public class ActorStateMachine : MonoBehaviour
         return m_CurrentState.Jump(jumpForce);
     }
 
-    public void Shoot()
+    public bool Shoot()
     {
-        m_CurrentState.Shoot();
+        return m_CurrentState.Shoot();
     }
 
     public void EndShoot()
     {
         Debug.Assert(m_CurrentState == m_ShootState);
-        ((ShootState)m_CurrentState).EndShoot();
+        ChangeTo(m_IdleState);
     }
 
 

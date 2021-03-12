@@ -9,9 +9,9 @@ public class JumpState : ActorState
         m_AnimatorParameter = "Jumping";
     }
 
-    override public void Shoot()
+    override public bool Shoot()
     {
-        return;
+        return false;
     }
 
     override protected void ChangeToJump()

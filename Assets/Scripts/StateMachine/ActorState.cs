@@ -47,9 +47,10 @@ public abstract class ActorState
         return jumpForce;
     }
 
-    virtual public void Shoot()
+    virtual public bool Shoot()
     {
         m_StateMachine.ChangeTo(m_StateMachine.m_ShootState);
+        return true;
     }
 
     virtual protected void ChangeToJump()

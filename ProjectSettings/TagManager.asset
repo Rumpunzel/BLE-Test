@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Projectile
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,7 +14,7 @@ TagManager:
   - Water
   - UI
   - World
-  - Actors
+  - Enemies
   - Projectiles
   - 
   - 
@@ -46,4 +48,7 @@ TagManager:
     locked: 0
   - name: Actors
     uniqueID: 4221063819
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2851042827
     locked: 0

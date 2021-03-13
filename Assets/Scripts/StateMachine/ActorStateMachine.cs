@@ -67,7 +67,6 @@ public class ActorStateMachine : MonoBehaviour
 
     public void EndShoot()
     {
-        Debug.Assert(m_CurrentState == m_ShootState);
         ChangeTo(m_IdleState);
     }
 

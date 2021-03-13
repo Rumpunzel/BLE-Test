@@ -96,13 +96,10 @@ public class ActorController : MonoBehaviour
 
     public void Shoot()
     {
-		if (m_StateMachine.Shoot())
-        {
-            SpawnProjectile();
-        }
+		m_StateMachine.Shoot();
 	}
 
-    private void SpawnProjectile()
+    private void Loose()
     {
         // TODO
     }

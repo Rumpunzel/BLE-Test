@@ -11,29 +11,21 @@ public class CameraFollow : MonoBehaviour
 
     private float m_XMin, m_XMax, m_YMin, m_YMax;
     private float m_CamY, m_CamX;
-    private float m_CameraOrthsize;
-    private float m_CameraRatio;
+    private float m_XBound, m_YBound;
     private Vector3 m_SmoothPos;
     private Camera m_MainCamera;
     
 
-    private void Start()
+    private void Awake()
     {
-        m_XMin = m_LevelBounds.bounds.min.x;
-        m_XMax = m_LevelBounds.bounds.max.x;
-        m_YMin = m_LevelBounds.bounds.min.y;
-        m_YMax = m_LevelBounds.bounds.max.y;
         m_MainCamera = GetComponent<Camera>();
-
-        m_CameraOrthsize = m_MainCamera.orthographicSize + 2f/3f;
-        m_CameraRatio = m_CameraOrthsize * m_MainCamera.aspect;//(m_XMax + m_CameraOrthsize) / 2.0f;
+        SetBounds();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        m_CamX = Mathf.Clamp(m_FollowTransform.position.x, m_XMin + m_CameraRatio, m_XMax - m_CameraRatio);
-        m_CamY = Mathf.Clamp(m_FollowTransform.position.y, m_YMin + m_CameraOrthsize, m_YMax - m_CameraOrthsize);
+        m_CamX = Mathf.Clamp(m_FollowTransform.position.x, m_XMin + m_XBound, m_XMax - m_XBound);
+        m_CamY = Mathf.Clamp(m_FollowTransform.position.y, m_YMin + m_YBound, m_YMax - m_YBound);
         
         m_SmoothPos = new Vector3(
             Mathf.Lerp(this.transform.position.x, m_CamX, m_HSmoothSpeed),
@@ -42,5 +34,17 @@ public class CameraFollow : MonoBehaviour
         );
 
         this.transform.position = m_SmoothPos;
+    }
+
+
+    private void SetBounds()
+    {
+        m_XMin = m_LevelBounds.bounds.min.x;
+        m_XMax = m_LevelBounds.bounds.max.x;
+        m_YMin = m_LevelBounds.bounds.min.y;
+        m_YMax = m_LevelBounds.bounds.max.y;
+        
+        m_YBound = m_MainCamera.orthographicSize;
+        m_XBound = m_MainCamera.orthographicSize * m_MainCamera.aspect;
     }
 }

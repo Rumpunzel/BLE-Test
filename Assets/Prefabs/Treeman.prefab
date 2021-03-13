@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0ee8901176179459d073845aefd9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHP: 3
+  m_MaxHP: 6
   m_StateMachine: {fileID: 3180676557909132064}
 --- !u!50 &4617047836565173220
 Rigidbody2D:

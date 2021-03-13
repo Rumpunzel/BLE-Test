@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ActorController))]
 public abstract class ActorInput : MonoBehaviour
 {
     [SerializeField] private ActorController m_Controller;
@@ -29,7 +30,7 @@ public abstract class ActorInput : MonoBehaviour
 
         if (m_Shooting)
         {
-            m_Controller.Shoot();
+            m_Controller.Attack();
             m_Shooting = false;
         }
     }

@@ -4945,6 +4945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fox
       objectReference: {fileID: 0}
+    - target: {fileID: 1605992663251742701, guid: f82a3945e77ca3a479299b4ac3d950c6, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1605992663251742702, guid: f82a3945e77ca3a479299b4ac3d950c6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5045,6 +5049,10 @@ PrefabInstance:
     - target: {fileID: 7044650036330193183, guid: 9f841bc070502104a9ca4327b81a992b, type: 3}
       propertyPath: m_Name
       value: Treeman
+      objectReference: {fileID: 0}
+    - target: {fileID: 7044650036330193183, guid: 9f841bc070502104a9ca4327b81a992b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f841bc070502104a9ca4327b81a992b, type: 3}

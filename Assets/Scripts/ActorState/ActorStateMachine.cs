@@ -104,11 +104,6 @@ public class ActorStateMachine : MonoBehaviour
         return true;
     }
 
-    private void ReturnToIdle()
-    {
-        ChangeTo(k_STATES.Idle);
-    }
-
 
     private void EnterState(k_STATES newState)
     {

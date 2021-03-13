@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 7181852742378415881}
   - component: {fileID: 1173625241858933332}
   - component: {fileID: 7496150113924645771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_CanDoubleJump: 0
   m_MovementSmoothing: 0.05
   m_GroundCheck: {fileID: 3680810689799331963}
-  m_Crossbow: {fileID: 0}
+  m_Weapon: {fileID: 0}
 --- !u!114 &6713665971135917095
 MonoBehaviour:
   m_ObjectHideFlags: 0

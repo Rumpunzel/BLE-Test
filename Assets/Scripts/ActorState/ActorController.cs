@@ -32,10 +32,7 @@ public class ActorController : MonoBehaviour
     private void FixedUpdate()
 	{
 		m_Grounded = m_GroundCheck.m_IsGrounded;
-		
         m_Rigidbody2D.gravityScale = m_BaseGravity * (m_Rigidbody2D.velocity.y < 0 ? m_FallMultiplier: 1f);
-
-        m_StateMachine.Move(m_Rigidbody2D.velocity, m_Grounded);
 	}
 
     public void Move(float direction)

@@ -4910,7 +4910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectToPool: {fileID: 8818528632825438143, guid: f1d4defb1afe9e94e886b12acf0c1d61, type: 3}
-  m_AmountToPool: 5
+  m_AmountToPool: 16
 --- !u!4 &1633070881
 Transform:
   m_ObjectHideFlags: 0

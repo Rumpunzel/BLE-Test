@@ -16,6 +16,6 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        m_IsGrounded = false;
+        if (collider != null && ((1 << collider.gameObject.layer) & m_WhatIsGround) != 0) m_IsGrounded = false;
     }
 }

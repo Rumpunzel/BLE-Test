@@ -9,7 +9,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private LayerMask m_WhereToDestroy;
     [SerializeField] private float m_Damage = 1f;
     [SerializeField] private float m_Speed = 8f;
-    [SerializeField] private float m_LifeSpan = 10f;
+
+    public int m_PoolIndex;
 
     private Rigidbody2D m_Rigidbody2D;
 
@@ -17,11 +18,6 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
-    }
-
-    void Start()
-    {
-        Destroy(gameObject, m_LifeSpan);
     }
 
 
@@ -44,7 +40,10 @@ public class Projectile : MonoBehaviour
         }
         else if (((1 << collider.gameObject.layer) & m_WhoToHit) != 0)
         {
-            if (collider.GetComponent<ActorVitals>().Damage(m_Damage, gameObject)) Destroy(gameObject);
+            if (collider.GetComponent<ActorVitals>().Damage(m_Damage, gameObject))
+            {
+                ProjectilePooler.k_SharedInstance.DeactivateObject(m_PoolIndex);
+            }
         }
     }
 }

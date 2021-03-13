@@ -8,7 +8,11 @@ public class Crossbow : Weapon
 
     override public void Attack(bool facingRight)
     {
-        GameObject newProjectile = Instantiate(m_Projectile, transform.position, Quaternion.identity);
-        newProjectile.GetComponent<Projectile>().Fire(facingRight);
+        GameObject bolt = ProjectilePooler.k_SharedInstance.GetPooledProjectile();
+
+        bolt.transform.position = transform.position;
+        bolt.transform.rotation = transform.rotation;
+        bolt.SetActive(true);
+        bolt.GetComponent<Projectile>().Fire(facingRight);
     }
 }

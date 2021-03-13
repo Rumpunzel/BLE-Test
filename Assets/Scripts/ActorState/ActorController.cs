@@ -74,12 +74,6 @@ public class ActorController : MonoBehaviour
 		m_Weapon.Attack(m_FacingRight);
     }
 
-    private void ReturnToIdle()
-    {
-		m_StateMachine.ReturnToIdle();
-	}
-
-
 	private void Flip()
 	{
 		m_FacingRight = !m_FacingRight;

@@ -17,11 +17,11 @@ public class ActorVitals : MonoBehaviour
     }
 
 
-    public void Damage(float damage)
+    public void Damage(float damage, GameObject sender)
     {
         m_HP -= m_StateMachine.Damage(damage);;
 
-        if (m_HP <= 0f) m_StateMachine.Die();
+        if (m_HP <= 0f) m_StateMachine.Die(sender);
     }
 
     private void ActuallyDie()

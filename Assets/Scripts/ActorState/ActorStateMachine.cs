@@ -89,10 +89,18 @@ public class ActorStateMachine : MonoBehaviour
         return damage;
     }
 
-    public bool Die()
+    public bool Die(GameObject sender)
     {
-        // Already Dead
-        if (m_CurrentState < k_STATES.Dead) ChangeTo(k_STATES.Dead);
+        // Not Already Dead
+        if (m_CurrentState < k_STATES.Dead)
+        {
+            Vector3 modifiedScale = transform.localScale;
+            modifiedScale.x = ((sender.transform.position.x < transform.position.x) ? -1 : 1) * Mathf.Abs(modifiedScale.x);
+            transform.localScale = modifiedScale;
+
+            ChangeTo(k_STATES.Dead);
+        }
+
         return true;
     }
 

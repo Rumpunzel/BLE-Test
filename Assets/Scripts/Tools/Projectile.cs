@@ -44,8 +44,7 @@ public class Projectile : MonoBehaviour
         }
         else if (((1 << collider.gameObject.layer) & m_WhoToHit) != 0)
         {
-            collider.GetComponent<ActorVitals>().Damage(m_Damage, gameObject);
-            Destroy(gameObject);
+            if (collider.GetComponent<ActorVitals>().Damage(m_Damage, gameObject)) Destroy(gameObject);
         }
     }
 }

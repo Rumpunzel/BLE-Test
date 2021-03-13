@@ -15,7 +15,7 @@ public class PlayerInput : ActorInput
 
         if (Input.GetButtonDown("Shoot"))
         {
-            m_Shooting = true;
+            m_Attacking = true;
         }
     }
 }

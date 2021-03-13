@@ -122,7 +122,7 @@ MonoBehaviour:
   m_CanDoubleJump: 1
   m_MovementSmoothing: 0.05
   m_GroundCheck: {fileID: 5379031136988745966}
-  m_Crossbow: {fileID: 2276361352820050541}
+  m_Weapon: {fileID: 2276361352820050541}
 --- !u!114 &1605992663251742672
 MonoBehaviour:
   m_ObjectHideFlags: 0

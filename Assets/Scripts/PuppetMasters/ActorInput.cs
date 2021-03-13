@@ -10,7 +10,7 @@ public abstract class ActorInput : MonoBehaviour
 
     protected float m_HorizontalMovement = 0f;
     protected bool m_Jumping = false;
-    protected bool m_Shooting = false;
+    protected bool m_Attacking = false;
 
 
     protected void Update()
@@ -28,10 +28,10 @@ public abstract class ActorInput : MonoBehaviour
             m_Jumping = false;
         }
 
-        if (m_Shooting)
+        if (m_Attacking)
         {
             m_Controller.Attack();
-            m_Shooting = false;
+            m_Attacking = false;
         }
     }
 

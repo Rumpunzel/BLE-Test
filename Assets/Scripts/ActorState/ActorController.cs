@@ -13,7 +13,7 @@ public class ActorController : MonoBehaviour
     [SerializeField] private bool m_CanDoubleJump = false;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
     [SerializeField] private GroundCheck m_GroundCheck;
-	[SerializeField] private Crossbow m_Crossbow;
+	[SerializeField] private Weapon m_Weapon;
 
 	private Rigidbody2D m_Rigidbody2D;
 
@@ -69,9 +69,9 @@ public class ActorController : MonoBehaviour
 		m_StateMachine.Attack();
 	}
 
-    private void LooseCrossbow()
+    private void WeaponAttack()
     {
-		m_Crossbow.Loose(m_FacingRight);
+		m_Weapon.Attack(m_FacingRight);
     }
 
     private void ReturnToIdle()

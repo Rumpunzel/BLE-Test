@@ -34,6 +34,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (collider == null) return;
+
         if (((1 << collider.gameObject.layer) & m_WhereToDestroy) != 0)
         {
             m_Rigidbody2D.velocity = Vector2.zero;

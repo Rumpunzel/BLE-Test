@@ -11,6 +11,7 @@ public class ActorController : MonoBehaviour
     [SerializeField] private float m_JumpForce = 400f;
     [SerializeField] private float m_FallMultiplier = 1.2f;
     [SerializeField] private bool m_CanDoubleJump = false;
+    [SerializeField] private float m_CoyoteTime = 0f;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
     [SerializeField] private GroundCheck m_GroundCheck;
 	[SerializeField] private Weapon m_Weapon;
@@ -19,6 +20,7 @@ public class ActorController : MonoBehaviour
 
     private float m_BaseGravity;
     private bool m_Grounded;
+    private float m_TimeSinceGrounded = 0f;
 	private bool m_FacingRight = true;
 	private Vector3 m_Velocity = Vector3.zero;
 
@@ -33,6 +35,15 @@ public class ActorController : MonoBehaviour
 	{
 		m_Grounded = m_GroundCheck.m_IsGrounded;
         m_Rigidbody2D.gravityScale = m_BaseGravity * (m_Rigidbody2D.velocity.y < 0 ? m_FallMultiplier: 1f);
+        
+        if (m_Grounded)
+        {
+            m_TimeSinceGrounded = 0f;
+        }
+        else
+        {
+            m_TimeSinceGrounded += Time.deltaTime;
+        }
 	}
 
     public void Move(float direction)
@@ -48,13 +59,14 @@ public class ActorController : MonoBehaviour
 
     public void Jump()
     {
-		if (m_Grounded || m_CanDoubleJump)
+		if (m_Grounded || m_CanDoubleJump || m_TimeSinceGrounded < m_CoyoteTime)
 		{
             Vector2 jumpForce = m_StateMachine.Jump(new Vector2(0f, m_JumpForce));
 
             if (jumpForce == Vector2.zero) return;
 
             m_Grounded = false;
+            m_TimeSinceGrounded = m_CoyoteTime;
 
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
 			m_Rigidbody2D.AddForce(jumpForce);

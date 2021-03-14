@@ -8,6 +8,7 @@ public class ActorStateMachine : MonoBehaviour
     public enum k_STATES {
         Walking,
         Idle,
+        Falling,
         Jumping,
         DoubleJumping,
         Shooting,
@@ -44,7 +45,8 @@ public class ActorStateMachine : MonoBehaviour
 
         if (!grounded)
         {
-            newState = k_STATES.Jumping;
+            // Transition to at least the Falling State
+            newState = m_CurrentState >= k_STATES.Falling ? m_CurrentState : k_STATES.Falling;
         }
         else if (Mathf.Abs(directionVector.x) > .01f)
         {
@@ -115,6 +117,7 @@ public class ActorStateMachine : MonoBehaviour
     {
         switch(state)
         {
+            case k_STATES.Falling:
             case k_STATES.Jumping:
             case k_STATES.DoubleJumping:
                 break;

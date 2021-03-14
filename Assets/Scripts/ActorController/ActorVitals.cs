@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(ActorStateMachine))]
 public class ActorVitals : MonoBehaviour
@@ -10,9 +11,10 @@ public class ActorVitals : MonoBehaviour
     [SerializeField] private LayerMask m_WhatDamagesMe;
     [SerializeField] private int m_FlickerAmount = 1;
     [SerializeField] private float m_FlickerInterval = .1f;
+    [SerializeField] private bool m_RestartOnDeath = false;
 
     private float m_HP;
-
+    private float m_KnockBackDistance = 500f;
     private bool m_Flickering = false;
     private int m_TimesFlickered = 0;
     private float m_TimeToFlicker = 0f;
@@ -40,6 +42,7 @@ public class ActorVitals : MonoBehaviour
                 m_Flickering = false;
                 m_TimesFlickered = 0;
                 m_TimeToFlicker = 0f;
+                Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemies"), false);
             }
         }
     }
@@ -55,6 +58,18 @@ public class ActorVitals : MonoBehaviour
 
         if (m_HP <= 0f) m_StateMachine.Die(sender);
         return true;
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collider)
+    {
+        if (collider != null && ((1 << collider.gameObject.layer) & m_WhatDamagesMe) != 0)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, collider.gameObject.layer, true);
+            Damage(1f, collider.gameObject);
+            Vector2 knockBackVector = (gameObject.transform.position - collider.gameObject.transform.position).normalized * m_KnockBackDistance;
+            GetComponent<Rigidbody2D>().AddForce(knockBackVector + new Vector2(knockBackVector.x, Mathf.Min(knockBackVector.y, 200f)));
+        }
     }
 
     private void Flash()
@@ -76,6 +91,13 @@ public class ActorVitals : MonoBehaviour
 
     private void ActuallyDie()
     {
-        Destroy(gameObject);
+        if (m_RestartOnDeath)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

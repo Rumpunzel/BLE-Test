@@ -159,6 +159,7 @@ MonoBehaviour:
     m_Bits: 128
   m_FlickerAmount: 10
   m_FlickerInterval: 0.1
+  m_RestartOnDeath: 1
 --- !u!50 &1605992663251742675
 Rigidbody2D:
   serializedVersion: 4

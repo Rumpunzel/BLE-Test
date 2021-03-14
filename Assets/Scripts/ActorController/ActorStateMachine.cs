@@ -149,11 +149,11 @@ public class ActorStateMachine : MonoBehaviour
             case k_STATES.Shooting:
             case k_STATES.Shooting_2:
             case k_STATES.Shooting_3:
-                m_Animator.SetTrigger("Shoot");
+                if (status) m_Animator.SetTrigger("Shoot");
                 break;
             
             case k_STATES.Dead:
-                m_Animator.SetTrigger("Die");
+                if (status) m_Animator.SetTrigger("Die");
                 break;
             
             default:

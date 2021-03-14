@@ -43,7 +43,7 @@ public class ActorVitals : MonoBehaviour
                 m_Flickering = false;
                 m_TimesFlickered = 0;
                 m_TimeToFlicker = 0f;
-                Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemies"), false);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
             }
         }
     }
@@ -66,7 +66,7 @@ public class ActorVitals : MonoBehaviour
     {
         if (collider != null && ((1 << collider.gameObject.layer) & m_WhatDamagesMe) != 0)
         {
-            Physics2D.IgnoreLayerCollision(gameObject.layer, collider.gameObject.layer, true);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), true);
             Damage(1f, collider.gameObject);
             Vector2 knockBackVector = (gameObject.transform.position - collider.gameObject.transform.position).normalized * m_KnockBackDistance;
             GetComponent<Rigidbody2D>().AddForce(knockBackVector + new Vector2(knockBackVector.x, Mathf.Min(knockBackVector.y, 200f)));
@@ -94,7 +94,7 @@ public class ActorVitals : MonoBehaviour
     {
         if (m_RestartOnDeath)
         {
-            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemies"), false);
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else

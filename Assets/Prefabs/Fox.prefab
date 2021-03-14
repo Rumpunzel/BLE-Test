@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Controller: {fileID: 1605992663251742674}
-  m_MovementSpeed: 200
+  m_MovementSpeed: 180
 --- !u!114 &1605992663251742674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   m_FlickerAmount: 10
   m_FlickerInterval: 0.1
   m_RestartOnDeath: 1
+  m_HP: 0
 --- !u!50 &1605992663251742675
 Rigidbody2D:
   serializedVersion: 4

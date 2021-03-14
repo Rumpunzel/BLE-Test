@@ -42,7 +42,7 @@ public class ActorController : MonoBehaviour
         }
         else
         {
-            m_TimeSinceGrounded += Time.deltaTime;
+            if (m_TimeSinceGrounded < m_CoyoteTime) m_TimeSinceGrounded += Time.deltaTime;
         }
 	}
 

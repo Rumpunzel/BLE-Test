@@ -8,22 +8,36 @@ public class ActorStateMachine : MonoBehaviour
     public enum k_STATES {
         Walking,
         Idle,
+        Shooting,
+        Shooting_2,
+        Shooting_3,
         Falling,
         Jumping,
         DoubleJumping,
-        Shooting,
         Hurt,
         Dead,
     }
 
     [SerializeField] protected Animator m_Animator;
+    [SerializeField] private bool m_HasIFrames = false;
+    [SerializeField] private float m_TripleShotCooldown = .4f;
 
     protected k_STATES m_CurrentState;
+
+    private float m_WeaponCooldown = 0f;
 
 
     void Start()
     {
         EnterState(k_STATES.Idle);
+    }
+
+    void Update()
+    {
+        if (m_WeaponCooldown > 0f)
+        {
+            m_WeaponCooldown = Mathf.Max(m_WeaponCooldown - Time.deltaTime, 0f);
+        }
     }
 
     
@@ -39,7 +53,7 @@ public class ActorStateMachine : MonoBehaviour
     public Vector2 Move(Vector2 directionVector, bool grounded)
     {
         // Cannot Move
-        if (m_CurrentState >= k_STATES.Shooting) return new Vector2(0f, directionVector.y);
+        if (m_CurrentState >= k_STATES.Hurt || (m_CurrentState >= k_STATES.Shooting && m_CurrentState <= k_STATES.Shooting_3)) return new Vector2(0f, directionVector.y);
 
         k_STATES newState;
 
@@ -76,16 +90,25 @@ public class ActorStateMachine : MonoBehaviour
     public bool Attack()
     {
         // Cannot Attack
-        if (m_CurrentState > k_STATES.Idle) return false;
+        if (m_WeaponCooldown > 0f || m_CurrentState >= k_STATES.Shooting_3) return false;
 
-        ChangeTo(k_STATES.Shooting);
+        if (m_CurrentState < k_STATES.Shooting)
+        {
+            ChangeTo(k_STATES.Shooting);
+        }
+        else
+        {
+            if (m_CurrentState == k_STATES.Shooting_2) m_WeaponCooldown = m_TripleShotCooldown;
+            ChangeTo(m_CurrentState + 1);
+        }
+
         return true;
     }
 
     public float Damage(float damage)
     {
         // Already Hurting or Dead
-        if (m_CurrentState >= k_STATES.Hurt) return 0f;
+        if (m_CurrentState >= k_STATES.Hurt + (m_HasIFrames ? 0 : 1)) return 0f;
 
         ChangeTo(k_STATES.Hurt);
         return damage;
@@ -120,6 +143,11 @@ public class ActorStateMachine : MonoBehaviour
             case k_STATES.Falling:
             case k_STATES.Jumping:
             case k_STATES.DoubleJumping:
+                break;
+            case k_STATES.Shooting:
+            case k_STATES.Shooting_2:
+            case k_STATES.Shooting_3:
+                m_Animator.SetTrigger("Shoot");
                 break;
             case k_STATES.Dead:
                 m_Animator.SetTrigger("Die");

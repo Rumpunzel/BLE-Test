@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         float directionModifier = facingRight ? 1f : -1f;
 
         Vector3 modifiedScale = transform.localScale;
-		modifiedScale.x *= directionModifier;
+		modifiedScale.x = Mathf.Abs(modifiedScale.x) * directionModifier;
 		transform.localScale = modifiedScale;
 
         m_Rigidbody2D.velocity = directionModifier * m_Rigidbody2D.transform.right * m_Speed;

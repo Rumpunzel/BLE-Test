@@ -106,16 +106,10 @@ public class ActorStateMachine : MonoBehaviour
         return true;
     }
 
-    public float Damage(float damage, bool isLethalDamage)
+    public float Damage(float damage)
     {
         // Already Hurting or Dead
         if (m_CurrentState >= k_STATES.Hurt + (m_HasIFrames ? 0 : 1)) return 0f;
-
-        if (!isLethalDamage)
-        {
-            UpdateAnimator(m_CurrentState, false);
-            EnterState(k_STATES.Hurt);
-        }
         
         return damage;
     }
@@ -149,16 +143,13 @@ public class ActorStateMachine : MonoBehaviour
             case k_STATES.Falling:
             case k_STATES.Jumping:
             case k_STATES.DoubleJumping:
+            case k_STATES.Hurt:
                 break;
             
             case k_STATES.Shooting:
             case k_STATES.Shooting_2:
             case k_STATES.Shooting_3:
                 m_Animator.SetTrigger("Shoot");
-                break;
-            
-            case k_STATES.Hurt:
-                m_Animator.SetTrigger("Hurt");
                 break;
             
             case k_STATES.Dead:

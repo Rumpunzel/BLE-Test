@@ -282,7 +282,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bc05af1c71885014d99e6b89607002c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -327,6 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 7407252438260513590}
+  m_HasIFrames: 0
+  m_TripleShotCooldown: 0.4
 --- !u!114 &6658933143363395115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +379,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHP: 6
   m_StateMachine: {fileID: 3180676557909132064}
+  m_WhatDamagesMe:
+    serializedVersion: 2
+    m_Bits: 0
+  m_FlickerAmount: 1
+  m_FlickerInterval: 0.1
 --- !u!50 &4617047836565173220
 Rigidbody2D:
   serializedVersion: 4

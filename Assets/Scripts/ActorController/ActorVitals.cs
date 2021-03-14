@@ -21,7 +21,7 @@ public class ActorVitals : MonoBehaviour
     {
         if (m_HP <= 0f) return false;
         
-        m_HP -= m_StateMachine.Damage(damage);;
+        m_HP -= m_StateMachine.Damage(damage, m_HP - damage <= 0f);;
 
         if (m_HP <= 0f) m_StateMachine.Die(sender);
         return true;

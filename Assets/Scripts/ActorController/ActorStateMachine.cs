@@ -43,7 +43,7 @@ public class ActorStateMachine : MonoBehaviour
     
     public void ChangeTo(k_STATES newState)
     {
-        if (newState == m_CurrentState) return;
+        if (newState == m_CurrentState || m_CurrentState >= k_STATES.Dead) return;
 
         UpdateAnimator(m_CurrentState, false);
         EnterState(newState);
@@ -54,7 +54,7 @@ public class ActorStateMachine : MonoBehaviour
     {
         // Cannot Move
         if (m_CurrentState >= k_STATES.Hurt || (m_CurrentState >= k_STATES.Shooting && m_CurrentState <= k_STATES.Shooting_3)) return new Vector2(0f, directionVector.y);
-
+        
         k_STATES newState;
 
         if (!grounded)
@@ -82,7 +82,7 @@ public class ActorStateMachine : MonoBehaviour
     {
         // Cannot Jump
         if (m_CurrentState > k_STATES.Jumping) return Vector2.zero;
-
+        
         ChangeTo(m_CurrentState == k_STATES.Jumping ? k_STATES.DoubleJumping : k_STATES.Jumping);
         return jumpForce;
     }
@@ -99,18 +99,24 @@ public class ActorStateMachine : MonoBehaviour
         else
         {
             if (m_CurrentState == k_STATES.Shooting_2) m_WeaponCooldown = m_TripleShotCooldown;
+            
             ChangeTo(m_CurrentState + 1);
         }
 
         return true;
     }
 
-    public float Damage(float damage)
+    public float Damage(float damage, bool isLethalDamage)
     {
         // Already Hurting or Dead
         if (m_CurrentState >= k_STATES.Hurt + (m_HasIFrames ? 0 : 1)) return 0f;
 
-        ChangeTo(k_STATES.Hurt);
+        if (!isLethalDamage)
+        {
+            UpdateAnimator(m_CurrentState, false);
+            EnterState(k_STATES.Hurt);
+        }
+        
         return damage;
     }
 
@@ -122,7 +128,7 @@ public class ActorStateMachine : MonoBehaviour
             Vector3 modifiedScale = transform.localScale;
             modifiedScale.x = ((sender.transform.position.x < transform.position.x) ? -1 : 1) * Mathf.Abs(modifiedScale.x);
             transform.localScale = modifiedScale;
-
+            
             ChangeTo(k_STATES.Dead);
         }
 
@@ -144,14 +150,21 @@ public class ActorStateMachine : MonoBehaviour
             case k_STATES.Jumping:
             case k_STATES.DoubleJumping:
                 break;
+            
             case k_STATES.Shooting:
             case k_STATES.Shooting_2:
             case k_STATES.Shooting_3:
                 m_Animator.SetTrigger("Shoot");
                 break;
+            
+            case k_STATES.Hurt:
+                m_Animator.SetTrigger("Hurt");
+                break;
+            
             case k_STATES.Dead:
                 m_Animator.SetTrigger("Die");
                 break;
+            
             default:
                 m_Animator.SetBool(state.ToString(), status);
                 break;

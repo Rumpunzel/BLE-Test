@@ -13,7 +13,8 @@ public class ActorVitals : MonoBehaviour
     [SerializeField] private float m_FlickerInterval = .1f;
     [SerializeField] private bool m_RestartOnDeath = false;
 
-    private float m_HP;
+    public float m_HP;
+
     private float m_KnockBackDistance = 500f;
     private bool m_Flickering = false;
     private int m_TimesFlickered = 0;
@@ -93,6 +94,7 @@ public class ActorVitals : MonoBehaviour
     {
         if (m_RestartOnDeath)
         {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Enemies"), false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else

@@ -51,7 +51,7 @@ public class ActorController : MonoBehaviour
         Vector3 targetVelocity = m_StateMachine.Move(new Vector2(direction, m_Rigidbody2D.velocity.y), m_Grounded);
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-        if ((targetVelocity.x > 0 && !m_FacingRight) || (targetVelocity.x < 0 && m_FacingRight))
+        if ((direction > 0 && !m_FacingRight) || (direction < 0 && m_FacingRight))
         {
             Flip();
         }
